@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1(class='center-align') Become a User!
+  div(class='container')
+    form(method='post')
+      div(class='row')
+        div(class='input-field col s6')
+          input(type='text', id='username', name='username' required)
+          label(for='username') Username
+        div(class='input-field col s6')
+          input(type='password', id='password', name='password' required)
+          label(for='password') Password
+      div(class='row')
+        input(type='submit', class='waves-effect waves-light btn')
+  div
+    h5= username
