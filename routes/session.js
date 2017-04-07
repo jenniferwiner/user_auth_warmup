@@ -32,7 +32,7 @@ router.post('/', function(req, res, next) {
             return next(boom.create(401));
           }
 
-          let token = jwt.sign({ user: user }, process.env.JWT_KEY)
+          let token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_KEY)
           res.cookie("token", token);
 
           res.render('dashboard', { username })

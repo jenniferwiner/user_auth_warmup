@@ -5,13 +5,28 @@ const jwt = require('jsonwebtoken')
 /* GET home page. */
 router.get('/', function(req, res, next) {
   let token = req.cookies.token
-  jwt.verify(token, process.env.JWT_KEY, (err, payload) => {
-    if (err) {
-      res.render('index', { title: 'Express' });
-    }
+  if (!token) {
+    res.render('index', {
+      title: 'Express'
+    });
+  }
+  else {
+    jwt.verify(token, process.env.JWT_KEY, (err, payload) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(payload);
+      res.render('dashboard', {
+        username: payload.username
+      });
+    });
+  }
 
-    res.render('dashboard', { username: payload });
-  });
 });
+
+router.get('/logout', (req, res, next) => {
+  res.clearCookie('token');
+  res.redirect('/');
+})
 
 module.exports = router;
